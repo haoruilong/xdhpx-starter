@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<configuration>
+
+	<!-- 输出格式 -->
+    <property name="pattern" value="%d{yyyy-MM-dd HH:mm:ss} [%thread] %level [%class:%line]: %m%n" />
+    <!-- 日志路径 -->
+    <property name="logFilePath" value="../logs" />
+    
+ 	   <!-- 本地环境 -->
+	  <springProfile name="local">
+	  
+	  		<!-- 设置日志输出到工作台 -->
+	        <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+	            <encoder>
+	                <pattern>${pattern}</pattern>
+	            </encoder>
+	        </appender>
+	        
+	        <!-- 设置日志级别 -->
+	        <root level="INFO">
+	            	<appender-ref ref="console" />
+	        </root>
+	    	
+	    </springProfile>
+ 
+	   <!-- 开发环境 -->
+	  <springProfile name="dev">
+	  
+	  		<!-- 设置日志输出到工作台 -->
+	   			<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+			            <encoder>
+			                	<pattern>${pattern}</pattern>
+			            </encoder>
+		        </appender>
+    			
+    			<!-- 设置日志保存文件 -->
+    			<appender name="fileLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+			           	<file>${logFilePath}/logInfo.log</file>
+			            
+			            <encoder>
+			                <pattern>${pattern}</pattern>
+			            </encoder>
+			            
+			            <!-- 设置日志切割规则以及最多保存规则 -->
+			            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			                <fileNamePattern>${logFilePath}/logInfo.%d{yyyy-MM-dd}.log</fileNamePattern>
+			                <MaxHistory>100</MaxHistory>
+			            </rollingPolicy>
+		            
+		        </appender>
+		        
+		        <root level="INFO">
+			        	<appender-ref ref="console" />
+			            <appender-ref ref="fileLog" />
+		        </root>
+	    	
+	    </springProfile>
+
+
+    	<!-- 测试环境环境 -->
+    	<springProfile name="test">
+    	
+	   			<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+			            <encoder>
+			                	<pattern>${pattern}</pattern>
+			            </encoder>
+		        </appender>
+    			
+    			<appender name="fileLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+			           	<file>${logFilePath}/logInfo.log</file>
+			            
+			            <encoder>
+			                <pattern>${pattern}</pattern>
+			            </encoder>
+			            
+			            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			                <fileNamePattern>${logFilePath}/logInfo.%d{yyyy-MM-dd}.log</fileNamePattern>
+			                <MaxHistory>100</MaxHistory>
+			            </rollingPolicy>
+		            
+		        </appender>
+		        
+		        <root level="INFO">
+			        	<appender-ref ref="console" />
+			            <appender-ref ref="fileLog" />
+		        </root>
+    		
+    	</springProfile>
+    
+    
+    	<!-- 生产环境 -->
+    	<springProfile name="pro">
+    	
+	   			<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+			            <encoder>
+			                	<pattern>${pattern}</pattern>
+			            </encoder>
+		        </appender>
+    			
+    			<appender name="fileLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+			           	<file>${logFilePath}/logInfo.log</file>
+			            
+			            <encoder>
+			                <pattern>${pattern}</pattern>
+			            </encoder>
+			            
+			            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+				                <fileNamePattern>${logFilePath}/logInfo.%d{yyyy-MM-dd}.log</fileNamePattern>
+				                <MaxHistory>100</MaxHistory>
+			            </rollingPolicy>
+		            
+		        </appender>
+		        
+		        <root level="WARN">
+			        	<appender-ref ref="console" />
+			            <appender-ref ref="fileLog" />
+		        </root>
+    		
+    	</springProfile>
+    
+    
+    
+</configuration>

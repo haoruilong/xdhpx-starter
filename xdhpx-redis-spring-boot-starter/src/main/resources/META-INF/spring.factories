@@ -1,0 +1,1 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.xdhpx.boot.starter.HelloAautoConfiguration
